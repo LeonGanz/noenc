@@ -3761,7 +3761,7 @@ Ket : Ketik /resetgame , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {contex
               break
        case 'tebakgambar': // case by piyo-chan
                     if (tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Selesein yg sebelumnya dulu atuh")
-                    get_result = await fetchJson(`https://api.lolhuman.xyz/api/tebak/gambar?apikey=${apikey}`)
+                    get_result = await fetchJson(`https://api.lolhuman.xyz/api/tebak/gambar?apikey=79c4683acff3cb4fbddbc08a`)
                     get_result = get_result.result
                     ini_image = get_result.image
                     jawaban = get_result.answer
