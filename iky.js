@@ -5563,7 +5563,7 @@ break
             ran = '999.webp'
             reply(mess.wait)
             await ffmpeg(`./${media}`)
-            .inputFormat(media)('.')[1])
+            .inputFormat(media)[1])
             .on('start', function (cmd) {
             console.log(`Started : ${cmd}`)
             })
