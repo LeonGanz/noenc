@@ -3759,24 +3759,38 @@ Ket : Ketik /resetgame , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {contex
 }
               gameAdd(sender, glimit)
               break
-       case 'tebakgambar': // case by piyo-chan
-                    if (tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Selesein yg sebelumnya dulu atuh")
-                    get_result = await fetchJson(`https://api.lolhuman.xyz/api/tebak/gambar?apikey=79c4683acff3cb4fbddbc08a`)
+     case 'tebakgambar':
+              if (tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Selesein yg sebelumnya dulu atuh")
+              get_result = await fetchJson(`https://api.lolhuman.xyz/api/tebak/gambar?apikey=79c4683acff3cb4fbddbc08a`)
                     get_result = get_result.result
                     ini_image = get_result.image
                     jawaban = get_result.answer
                     ini_buffer = await getBuffer(ini_image)
-                    await lolhuman.sendMessage(from, ini_buffer, image, { quoted: lol, caption: "Jawab gk? Jawab lahhh, masa enggak. 30 detik cukup kan? gk cukup pulang aja" }).then(() => {
-                        tebakgambar[sender.split('@')[0]] = jawaban.toLowerCase()
-                        fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
-                    })
-                    await sleep(30000)
-                    if (tebakgambar.hasOwnProperty(sender.split('@')[0])) {
-                        reply("Jawaban: " + jawaban)
-                        delete tebakgambar[sender.split('@')[0]]
-                        fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
-                    }
-                    break
+              kisi_kisi = jawaban.replace(/[b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|y|z]/gi, '_')
+              buff = await getBuffer(ini_image)
+              
+            ikyy.sendMessage(from, ini_buffer, image, { quoted: freply, caption: 'Silahkan jawab soal berikut ini\n\nPetunjuk :'+kisi_kisi+'\nWaktu : 30s' }).then(() => {
+              tebakgambar[sender.split('@')[0]] = jawaban.toLowerCase()
+              fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
+})
+              await sleep(30000)
+              if (tebakgambar.hasOwnProperty(sender.split('@')[0])) {
+              console.log(color("Jawaban: " + jawaban))
+           titid = "*Jawaban*: " + jawaban
+   sendButMessage(from, titid, `Klik Untuk Ke Game Selanjutnya`, [
+          {
+            buttonId: `${prefix}tebakgambar`,
+            buttonText: {
+              displayText: `⬡ NEXT `,
+            },
+            type: 1,
+          },]);
+              
+              delete tebakgambar[sender.split('@')[0]]
+              fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
+}
+              gameAdd(sender, glimit)
+              break
                 case 'canceltebakgambar':
                     if (!tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Anda tidak memiliki tebak gambar sebelumnya")
                     delete tebakgambar[sender.split('@')[0]]
@@ -5192,11 +5206,22 @@ a += `\`\`\`🐣 Title : ${i.title}\`\`\`
                throw err
 })
                break
-       case 'asupan':
-                    get_result = await fetchJson(`https://api.lolhuman.xyz/api/asupan?apikey=79c4683acff3cb4fbddbc08a`)
-                    ini_buffer = await getBuffer(get_result.result)
-                    await lolhuman.sendMessage(from, ini_buffer, video, { quoted: lol, mimetype: Mimetype.mp4, filename: "asupan.mp4" })
-                    break
+
+         case 'asupan': // shansekai
+               if (!isPremium) return sendButMessage (from, prem1, prem2, prem3, { quoted: freply})
+               reply(mess.wait)
+               asupan()
+              .then(async (body) => {
+               asupann = body.split('\n')
+               asupanx = asupann[Math.floor(Math.random() * asupann.length)]
+               sendMediaURL(from, `http://sansekai.my.id/ptl_repost/${asupanx}`, 'Follow IG: https://www.instagram.com/leonvx._ untuk mendapatkan asupan lebih banyak.')
+               console.log('Success sending video!')
+})
+              .catch(async (err) => {
+               console.log(err)
+               reply(`${err}`)
+})
+               break
         case 'nulis':
         case 'tulis':
                if (args.length < 1) return reply('Yang mau di tulis apaan?')
@@ -5529,7 +5554,7 @@ break
               reply(`${err}`)
 })
               break
-       case 'gifstiker':
+case 'gifstiker':
 				case 's':
 			case 'stickergif':  
 				case 'sticker':
@@ -5585,7 +5610,7 @@ break
             } else {
                 reply(`Kirim gambar dengan caption ${prefix}sticker\nDurasi Sticker Video 1-9 Detik`)
             }
-            break               
+            break   
        case 'take':
        case 'colong':
               if (!isQuotedSticker) return reply('Stiker aja om')
