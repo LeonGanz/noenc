@@ -3759,7 +3759,7 @@ Ket : Ketik /resetgame , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {contex
 }
               gameAdd(sender, glimit)
               break
-             case 'tebakgambar':
+       case 'tebakgambar':
               if (tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Selesein yg sebelumnya dulu atuh")
               get_result = await fetchJson(`https://yui-botz.herokuapp.com/api/kuis/tebakgambar?apikey=Yuibotz`)
                     get_result = get_result.result
@@ -3777,6 +3777,20 @@ Ket : Ketik /resetgame , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {contex
               if (tebakgambar.hasOwnProperty(sender.split('@')[0])) {
               console.log(color("Jawaban: " + jawaban))
            titid = "*Jawaban*: " + jawaban
+   sendButMessage(from, titid, `Klik Untuk Ke Game Selanjutnya`, [
+          {
+            buttonId: `${prefix}tebakgambar`,
+            buttonText: {
+              displayText: `⬡ NEXT `,
+            },
+            type: 1,
+          },]);
+              
+              delete tebakgambar[sender.split('@')[0]]
+              fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
+}
+              gameAdd(sender, glimit)
+              break
    sendButMessage(from, titid, `Klik Untuk Ke Game Selanjutnya`, [
           {
             buttonId: `${prefix}tebakgambar`,
@@ -5232,7 +5246,7 @@ a += `\`\`\`🐣 Title : ${i.title}\`\`\`
                 fetchText('http://sansekai.my.id/sansekai.txt').then((data) => {
                     var wifegerak = data.split('\n')
                     var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
-                        rimuru.sendFileFromUrl(from, `http://sansekai.my.id/ptl_repost/${wifegerakx}`, 'Follow IG: https://www.instagram.com/ptl_repost untuk mendapatkan asupan lebih banyak.', msg)
+                        ikyy.sendFileFromUrl(from, `http://sansekai.my.id/ptl_repost/${wifegerakx}`, 'Follow IG: https://www.instagram.com/ptl_repost untuk mendapatkan asupan lebih banyak.', msg)
                 })
                 }
                 break
