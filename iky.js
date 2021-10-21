@@ -5534,8 +5534,8 @@ break
 			case 'stickergif':  
 				case 'sticker':
 				  case 'stiker':
-					     if ((isMedia && !editz.message.videoMessage || isQuotedImage) && args.length == 0) {
-            const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(editz).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : editz
+					     if ((isMedia && !kyy.message.videoMessage || isQuotedImage) && args.length == 0) {
+            const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(kyy).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : kyy
             const media = await rimuru.downloadAndSaveMediaMessage(encmedia)
 ran = '666.webp'
 await ffmpeg(`./${media}`)
@@ -5557,8 +5557,8 @@ fs.unlinkSync(ran)
 .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
 .toFormat('webp')
 .save(ran)
-} else if ((isMedia && editz.message.videoMessage.seconds < 11 || isQuotedVideo && editz.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
-const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(editz).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : editz
+} else if ((isMedia && kyy.message.videoMessage.seconds < 11 || isQuotedVideo && editz.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
+const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(kyy).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : kyy
 const media = await rimuru.downloadAndSaveMediaMessage(encmedia)
             ran = '999.webp'
             reply(mess.wait)
