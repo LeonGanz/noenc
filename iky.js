@@ -5529,37 +5529,37 @@ break
               reply(`${err}`)
 })
               break
-       case 'gifstiker':
+case 'gifstiker':
 				case 's':
 			case 'stickergif':  
 				case 'sticker':
 				  case 'stiker':
 					     if ((isMedia && !kyy.message.videoMessage || isQuotedImage) && args.length == 0) {
             const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(kyy).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : kyy
-            const media = await rimuru.downloadAndSaveMediaMessage(encmedia)
-ran = '666.webp'
-await ffmpeg(`./${media}`)
-.input(media)
-.on('start', function (cmd) {
-     console.log(`Started : ${cmd}`)
-})
-.on('error', function (err) {
- console.log(`Error : ${err}`)
-fs.unlinkSync(media)
-reply('error')
-})
-.on('end', function () {
-console.log('Finish')
-rimuru.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: freply})
- fs.unlinkSync(media)
-fs.unlinkSync(ran)
-})
-.addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-.toFormat('webp')
-.save(ran)
-} else if ((isMedia && kyy.message.videoMessage.seconds < 11 || isQuotedVideo && editz.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
-const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(kyy).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : kyy
-const media = await rimuru.downloadAndSaveMediaMessage(encmedia)
+            const media = await ikyy.downloadAndSaveMediaMessage(encmedia)
+                ran = '666.webp'
+                await ffmpeg(`./${media}`)
+                .input(media)
+                .on('start', function (cmd) {
+                     console.log(`Started : ${cmd}`)
+                })
+                .on('error', function (err) {
+                 console.log(`Error : ${err}`)
+                fs.unlinkSync(media)
+                reply('error')
+                })
+                .on('end', function () {
+                console.log('Finish')
+                ikyy.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: freply})
+                 fs.unlinkSync(media)
+                fs.unlinkSync(ran)
+                })
+                .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+                .toFormat('webp')
+                .save(ran)
+                } else if ((isMedia && kyy.message.videoMessage.seconds < 11 || isQuotedVideo && kyy.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
+                const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(kyy).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : kyy
+                const media = await ikyy.downloadAndSaveMediaMessage(encmedia)
             ran = '999.webp'
             reply(mess.wait)
             await ffmpeg(`./${media}`)
@@ -5575,17 +5575,17 @@ const media = await rimuru.downloadAndSaveMediaMessage(encmedia)
             })
             .on('end', function () {
             console.log('Finish')
-            rimuru.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: freply})
+            ikyy.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: freply})
             fs.unlinkSync(media)
             fs.unlinkSync(ran)
-})
-.addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-.toFormat('webp')
-.save(ran)
+                })
+                .addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+                .toFormat('webp')
+                .save(ran)
             } else {
-reply(`Kirim gambar dengan caption ${prefix}sticker\nDurasi Sticker Video 1-9 Detik`)
+                reply(`Kirim gambar dengan caption ${prefix}sticker\nDurasi Sticker Video 1-9 Detik`)
             }
-            break     
+            break                 
        case 'take':
        case 'colong':
               if (!isQuotedSticker) return reply('Stiker aja om')
