@@ -3759,24 +3759,59 @@ Ket : Ketik /resetgame , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {contex
 }
               gameAdd(sender, glimit)
               break
-       case 'tebakgambar': // case by piyo-chan
-                    if (tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Selesein yg sebelumnya dulu atuh")
-                    get_result = await fetchJson(`https://api.lolhuman.xyz/api/tebak/gambar?apikey=79c4683acff3cb4fbddbc08a`)
+             case 'tebakgambar':
+              if (tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Selesein yg sebelumnya dulu atuh")
+              get_result = await fetchJson(`https://api.lolhuman.xyz/api/tebak/gambar?apikey=${setting.lolkey}`)
                     get_result = get_result.result
                     ini_image = get_result.image
                     jawaban = get_result.answer
                     ini_buffer = await getBuffer(ini_image)
-                    await lolhuman.sendMessage(from, ini_buffer, image, { quoted: lol, caption: "Jawab gk? Jawab lahhh, masa enggak. 30 detik cukup kan? gk cukup pulang aja" }).then(() => {
-                        tebakgambar[sender.split('@')[0]] = jawaban.toLowerCase()
-                        fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
-                    })
-                    await sleep(30000)
-                    if (tebakgambar.hasOwnProperty(sender.split('@')[0])) {
-                        reply("Jawaban: " + jawaban)
-                        delete tebakgambar[sender.split('@')[0]]
-                        fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
-                    }
-                    break
+              kisi_kisi = jawaban.replace(/[b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|y|z]/gi, '_')
+              buff = await getBuffer(ini_image)
+              
+            rimuru.sendMessage(from, ini_buffer, image, { quoted: freply, caption: 'Silahkan jawab soal berikut ini\n\nPetunjuk :'+kisi_kisi+'\nWaktu : 30s' }).then(() => {
+              tebakgambar[sender.split('@')[0]] = jawaban.toLowerCase()
+              fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
+})
+              await sleep(30000)
+              if (tebakgambar.hasOwnProperty(sender.split('@')[0])) {
+              console.log(color("Jawaban: " + jawaban))
+           titid = "*Jawaban*: " + jawaban
+   sendButMessage(from, titid, `Klik Untuk Ke Game Selanjutnya`, [
+          {
+            buttonId: `${prefix}tebakgambar`,
+            buttonText: {
+              displayText: `⬡ NEXT `,
+            },
+            type: 1,
+          },]);
+              
+              delete tebakgambar[sender.split('@')[0]]
+              fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
+}
+              gameAdd(sender, glimit)
+              break
+       case 'siapaaku':
+              if (isGame(sender, isPremium, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
+              if (tebaksiapaaku.hasOwnProperty(sender.split('@')[0])) return reply("Masih ada soal yg belum terjawab")
+              get_result = await fetchJson(`https://lolhuman.herokuapp.com/api/tebak/siapaaku?apikey=79c4683acff3cb4fbddbc08a`)
+              get_result = get_result.result
+              jawaban = get_result.answer
+              kisi_kisi = jawaban.replace(/[b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|y|z]/gi, '_')
+              pertanyaan = get_result.question
+              rimuru.sendMessage(from, '*+* ```Tebak Siapakah Aku```\n\n• *soal* :'+pertanyaan+'\n• *kisi²* :'+kisi_kisi, text, { quoted: freply}).then(() => {
+              tebaksiapaaku[sender.split('@')[0]] = jawaban.toLowerCase()
+              fs.writeFileSync("./database/tebaksiapaaku.json", JSON.stringify(tebaksiapaaku))
+})
+              await sleep(30000)
+              if (tebaksiapaaku.hasOwnProperty(sender.split('@')[0])) {
+              console.log(color("Jawaban: " + jawaban))
+              reply("Jawaban: " + jawaban)
+              delete tebaksiapaaku[sender.split('@')[0]]
+              fs.writeFileSync("./database/tebaksiapaaku.json", JSON.stringify(tebaksiapaaku))
+}
+              gameAdd(sender, glimit)
+              break
                 case 'canceltebakgambar':
                     if (!tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Anda tidak memiliki tebak gambar sebelumnya")
                     delete tebakgambar[sender.split('@')[0]]
