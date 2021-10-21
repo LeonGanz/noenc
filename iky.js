@@ -3284,7 +3284,7 @@ Silahkan pilih tabel di bawah ini , jika tidak support silahkan ketik ! command
                     break
                 case 'alquran':
                     if (args.length < 1) return reply(`Example: ${prefix + command} 18 or ${prefix + command} 18/10 or ${prefix + command} 18/1-10`)
-                    urls = `https://api.lolhuman.xyz/api/quran/${args[0]}?apikey=79c4683acff3cb4fbddbc08a`
+                    urls = `https://yui-botz.herokuapp.com/api/quran?surah=${args[0]}?apikey=Yuibotz`
                     quran = await fetchJson(urls)
                     result = quran.result
                     ayat = result.ayat
@@ -3613,7 +3613,7 @@ Ket : Ketik /resetgame , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {contex
        case 'family100':
               if (isGame(sender, isPremium, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
               if (game.isfam(from, family100)) return reply(`Masih ada soal yang belum di selesaikan`)
-              anu = await axios.get(`http://api.lolhuman.xyz/api/tebak/family100?apikey=79c4683acff3cb4fbddbc08a`)
+              anu = await axios.get(`http://api. .xyz/api/tebak/family100?apikey=79c4683acff3cb4fbddbc08a`)
               titid =  `*JAWABLAH SOAL BERIKUT*\n\n*Soal :* ${anu.data.result.question}\nTotal Jawaban :* ${anu.data.result.answer.length}\n\nWaktu : ${gamewaktu}s `
           
                    sendButMessage(from, titid, `Klik Untuk Ke Game Selanjutnya`, [
@@ -3761,7 +3761,7 @@ Ket : Ketik /resetgame , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {contex
               break
              case 'tebakgambar':
               if (tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Selesein yg sebelumnya dulu atuh")
-              get_result = await fetchJson(`https://api.lolhuman.xyz/api/tebak/gambar?apikey=${setting.lolkey}`)
+              get_result = await fetchJson(`https://yui-botz.herokuapp.com/api/kuis/tebakgambar?apikey=Yuibotz`)
                     get_result = get_result.result
                     ini_image = get_result.image
                     jawaban = get_result.answer
@@ -5227,11 +5227,15 @@ a += `\`\`\`🐣 Title : ${i.title}\`\`\`
                throw err
 })
                break
-       case 'asupan':
-                    get_result = await fetchJson(`https://api.lolhuman.xyz/api/asupan?apikey=79c4683acff3cb4fbddbc08a`)
-                    ini_buffer = await getBuffer(get_result.result)
-                    await lolhuman.sendMessage(from, ini_buffer, video, { quoted: lol, mimetype: Mimetype.mp4, filename: "asupan.mp4" })
-                    break
+                    case 'asupan': case 'ptl': case 'ptlvid':{
+                if (!isPremium) return reply(mess.OnlyPrem)
+                fetchText('http://sansekai.my.id/sansekai.txt').then((data) => {
+                    var wifegerak = data.split('\n')
+                    var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
+                        rimuru.sendFileFromUrl(from, `http://sansekai.my.id/ptl_repost/${wifegerakx}`, 'Follow IG: https://www.instagram.com/ptl_repost untuk mendapatkan asupan lebih banyak.', msg)
+                })
+                }
+                break
         case 'nulis':
         case 'tulis':
                if (args.length < 1) return reply('Yang mau di tulis apaan?')
