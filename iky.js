@@ -3284,7 +3284,7 @@ Silahkan pilih tabel di bawah ini , jika tidak support silahkan ketik ! command
                     break
                 case 'alquran':
                     if (args.length < 1) return reply(`Example: ${prefix + command} 18 or ${prefix + command} 18/10 or ${prefix + command} 18/1-10`)
-                    urls = `https://yui-botz.herokuapp.com/api/quran?surah=${args[0]}?apikey=Yuibotz`
+                    urls = `https://api.lolhuman.xyz/api/quran/${args[0]}?apikey=79c4683acff3cb4fbddbc08a`
                     quran = await fetchJson(urls)
                     result = quran.result
                     ayat = result.ayat
@@ -3613,7 +3613,7 @@ Ket : Ketik /resetgame , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {contex
        case 'family100':
               if (isGame(sender, isPremium, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
               if (game.isfam(from, family100)) return reply(`Masih ada soal yang belum di selesaikan`)
-              anu = await axios.get(`http://api. .xyz/api/tebak/family100?apikey=79c4683acff3cb4fbddbc08a`)
+              anu = await axios.get(`http://api.lolhuman.xyz/api/tebak/family100?apikey=79c4683acff3cb4fbddbc08a`)
               titid =  `*JAWABLAH SOAL BERIKUT*\n\n*Soal :* ${anu.data.result.question}\nTotal Jawaban :* ${anu.data.result.answer.length}\n\nWaktu : ${gamewaktu}s `
           
                    sendButMessage(from, titid, `Klik Untuk Ke Game Selanjutnya`, [
@@ -3759,73 +3759,24 @@ Ket : Ketik /resetgame , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {contex
 }
               gameAdd(sender, glimit)
               break
-       case 'tebakgambar':
-              if (tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Selesein yg sebelumnya dulu atuh")
-              get_result = await fetchJson(`https://yui-botz.herokuapp.com/api/kuis/tebakgambar?apikey=Yuibotz`)
+       case 'tebakgambar': // case by piyo-chan
+                    if (tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Selesein yg sebelumnya dulu atuh")
+                    get_result = await fetchJson(`https://api.lolhuman.xyz/api/tebak/gambar?apikey=79c4683acff3cb4fbddbc08a`)
                     get_result = get_result.result
                     ini_image = get_result.image
                     jawaban = get_result.answer
                     ini_buffer = await getBuffer(ini_image)
-              kisi_kisi = jawaban.replace(/[b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|y|z]/gi, '_')
-              buff = await getBuffer(ini_image)
-              
-            rimuru.sendMessage(from, ini_buffer, image, { quoted: freply, caption: 'Silahkan jawab soal berikut ini\n\nPetunjuk :'+kisi_kisi+'\nWaktu : 30s' }).then(() => {
-              tebakgambar[sender.split('@')[0]] = jawaban.toLowerCase()
-              fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
-})
-              await sleep(30000)
-              if (tebakgambar.hasOwnProperty(sender.split('@')[0])) {
-              console.log(color("Jawaban: " + jawaban))
-           titid = "*Jawaban*: " + jawaban
-   sendButMessage(from, titid, `Klik Untuk Ke Game Selanjutnya`, [
-          {
-            buttonId: `${prefix}tebakgambar`,
-            buttonText: {
-              displayText: `⬡ NEXT `,
-            },
-            type: 1,
-          },]);
-              
-              delete tebakgambar[sender.split('@')[0]]
-              fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
-}
-              gameAdd(sender, glimit)
-              break
-   sendButMessage(from, titid, `Klik Untuk Ke Game Selanjutnya`, [
-          {
-            buttonId: `${prefix}tebakgambar`,
-            buttonText: {
-              displayText: `⬡ NEXT `,
-            },
-            type: 1,
-          },]);
-              
-              delete tebakgambar[sender.split('@')[0]]
-              fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
-}
-              gameAdd(sender, glimit)
-              break
-       case 'siapaaku':
-              if (isGame(sender, isPremium, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
-              if (tebaksiapaaku.hasOwnProperty(sender.split('@')[0])) return reply("Masih ada soal yg belum terjawab")
-              get_result = await fetchJson(`https://lolhuman.herokuapp.com/api/tebak/siapaaku?apikey=79c4683acff3cb4fbddbc08a`)
-              get_result = get_result.result
-              jawaban = get_result.answer
-              kisi_kisi = jawaban.replace(/[b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|y|z]/gi, '_')
-              pertanyaan = get_result.question
-              rimuru.sendMessage(from, '*+* ```Tebak Siapakah Aku```\n\n• *soal* :'+pertanyaan+'\n• *kisi²* :'+kisi_kisi, text, { quoted: freply}).then(() => {
-              tebaksiapaaku[sender.split('@')[0]] = jawaban.toLowerCase()
-              fs.writeFileSync("./database/tebaksiapaaku.json", JSON.stringify(tebaksiapaaku))
-})
-              await sleep(30000)
-              if (tebaksiapaaku.hasOwnProperty(sender.split('@')[0])) {
-              console.log(color("Jawaban: " + jawaban))
-              reply("Jawaban: " + jawaban)
-              delete tebaksiapaaku[sender.split('@')[0]]
-              fs.writeFileSync("./database/tebaksiapaaku.json", JSON.stringify(tebaksiapaaku))
-}
-              gameAdd(sender, glimit)
-              break
+                    await lolhuman.sendMessage(from, ini_buffer, image, { quoted: lol, caption: "Jawab gk? Jawab lahhh, masa enggak. 30 detik cukup kan? gk cukup pulang aja" }).then(() => {
+                        tebakgambar[sender.split('@')[0]] = jawaban.toLowerCase()
+                        fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
+                    })
+                    await sleep(30000)
+                    if (tebakgambar.hasOwnProperty(sender.split('@')[0])) {
+                        reply("Jawaban: " + jawaban)
+                        delete tebakgambar[sender.split('@')[0]]
+                        fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
+                    }
+                    break
                 case 'canceltebakgambar':
                     if (!tebakgambar.hasOwnProperty(sender.split('@')[0])) return reply("Anda tidak memiliki tebak gambar sebelumnya")
                     delete tebakgambar[sender.split('@')[0]]
@@ -5241,15 +5192,11 @@ a += `\`\`\`🐣 Title : ${i.title}\`\`\`
                throw err
 })
                break
-                    case 'asupan': case 'ptl': case 'ptlvid':{
-                if (!isPremium) return reply(mess.OnlyPrem)
-                fetchText('http://sansekai.my.id/sansekai.txt').then((data) => {
-                    var wifegerak = data.split('\n')
-                    var wifegerakx = wifegerak[Math.floor(Math.random() * wifegerak.length)]
-                        ikyy.sendFileFromUrl(from, `http://sansekai.my.id/ptl_repost/${wifegerakx}`, 'Follow IG: https://www.instagram.com/ptl_repost untuk mendapatkan asupan lebih banyak.', msg)
-                })
-                }
-                break
+       case 'asupan':
+                    get_result = await fetchJson(`https://api.lolhuman.xyz/api/asupan?apikey=79c4683acff3cb4fbddbc08a`)
+                    ini_buffer = await getBuffer(get_result.result)
+                    await lolhuman.sendMessage(from, ini_buffer, video, { quoted: lol, mimetype: Mimetype.mp4, filename: "asupan.mp4" })
+                    break
         case 'nulis':
         case 'tulis':
                if (args.length < 1) return reply('Yang mau di tulis apaan?')
@@ -5582,7 +5529,7 @@ break
               reply(`${err}`)
 })
               break
-case 'gifstiker':
+       case 'gifstiker':
 				case 's':
 			case 'stickergif':  
 				case 'sticker':
@@ -5638,7 +5585,7 @@ case 'gifstiker':
             } else {
                 reply(`Kirim gambar dengan caption ${prefix}sticker\nDurasi Sticker Video 1-9 Detik`)
             }
-            break                 
+            break               
        case 'take':
        case 'colong':
               if (!isQuotedSticker) return reply('Stiker aja om')
