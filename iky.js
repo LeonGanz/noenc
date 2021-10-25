@@ -5222,19 +5222,13 @@ a += `\`\`\`🐣 Title : ${i.title}\`\`\`
                reply(`${err}`)
 })
                break
-        case 'nulis':
-        case 'tulis':
-               if (args.length < 1) return reply('Yang mau di tulis apaan?')
-               teks = args.join(' ')
-               reply(mess.wait)
-               nulis = encodeURIComponent(teks)
-               res = await axios.get(`https://dt-04.herokuapp.com/nulis?text=${nulis}`)
-               if (res.data.error) return reply(res.data.error)
-               buff = Buffer.from(res.data.result.split(',')[1], 'base64')
-               ikyy.sendMessage(from, buff, image, {quoted: freply, caption: mess.success}).catch(e => {
-               return reply('_[ ! ] Error Gagal Dalam Mendownload Dan Mengirim File_')
+case 'nulis': 
+if (args.length < 1) return reply('Teks nya mana?') 
+nulis = args.join(" ")
+nulis = await getBuffer(`https://api.zeks.me/api/nulis?apikey=328HYjt1oJpXKNIliMaze3Y6coq&text=${nulis}`)
+pemuda.sendMessage(from,nulis,image,{quoted:mek}) 
+break
 })
-               break
 //------------------< Level >-------------------
       case 'level': 
               if (!isGroup) return reply(mess.only.group)
