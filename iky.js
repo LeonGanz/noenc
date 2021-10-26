@@ -5222,13 +5222,12 @@ a += `\`\`\`🐣 Title : ${i.title}\`\`\`
                reply(`${err}`)
 })
                break
-case 'nulis': 
-if (args.length < 1) return reply('Teks nya mana?') 
-nulis = args.join(" ")
-nulis = await getBuffer(`https://api.zeks.me/api/nulis?apikey=328HYjt1oJpXKNIliMaze3Y6coq&text=${nulis}`)
-pemuda.sendMessage(from,nulis,image,{quoted:mek}) 
-break
-})
+               case 'nulis': 
+               if (args.length < 1) return reply('Teks nya mana?') 
+               nulis = args.join(" ")
+               nulis = await getBuffer(`https://api.zeks.me/api/nulis?apikey=328HYjt1oJpXKNIliMaze3Y6coq&text=${nulis}`)
+               ikyy.sendMessage(from,nulis,image,{quoted:freply}) 
+break 
 //------------------< Level >-------------------
       case 'level': 
               if (!isGroup) return reply(mess.only.group)
@@ -6871,4 +6870,3 @@ console.log('[',color('TEXT','teal'),']',`Pesan : ${budy} Dari`, color(pushname)
         }
 	}
 }
-
